@@ -20,17 +20,17 @@ ENV APP_OPTS=""
 ENTRYPOINT ["sh", "-c", "java -jar /$image_name.jar $APP_OPTS"]
 EOF
 date=`date +%Y%m%d%H%M%S`
-/usr/local/bin/docker build -t registry.cn-hangzhou.aliyuncs.com/ceres-spring/$image_name:$date .
+docker build -t registry.cn-hangzhou.aliyuncs.com/ceres-spring/$image_name:$date .
 if [ $? -eq 0 ]
 then
 rm -f Dockerfile
 echo "build success"
-/usr/local/bin/docker push registry.cn-hangzhou.aliyuncs.com/ceres-spring/$image_name:$date
+docker push registry.cn-hangzhou.aliyuncs.com/ceres-spring/$image_name:$date
 if [ $? -eq 0 ]
 then
 echo "push success"
-/usr/local/bin/docker rmi registry.cn-hangzhou.aliyuncs.com/ceres-spring/$image_name:$date
-/usr/local/bin/kubectl set image statefulset/$image_name $image_name=registry.cn-hangzhou.aliyuncs.com/ceres-spring/$image_name:$date -n spring-cloud
+docker rmi registry.cn-hangzhou.aliyuncs.com/ceres-spring/$image_name:$date
+kubectl set image statefulset/$image_name $image_name=registry.cn-hangzhou.aliyuncs.com/ceres-spring/$image_name:$date -n spring-cloud
 else
 echo "push error"
 fi
