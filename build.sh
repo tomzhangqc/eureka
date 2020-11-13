@@ -30,7 +30,7 @@ if [ $? -eq 0 ]
 then
 echo "push success"
 /usr/local/bin/docker rmi registry.cn-hangzhou.aliyuncs.com/ceres-spring/$image_name:$date
-/usr/local/bin/kubectl set image deployment/$image_name $image_name=registry.cn-hangzhou.aliyuncs.com/ceres-spring/$image_name:$date -n spring-cloud
+/usr/local/bin/kubectl set image statefulset/$image_name $image_name=registry.cn-hangzhou.aliyuncs.com/ceres-spring/$image_name:$date -n spring-cloud
 else
 echo "push error"
 fi
